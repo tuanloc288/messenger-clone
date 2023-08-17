@@ -275,6 +275,7 @@ const ProfileDrawer: FC<ProfileDrawerProps> = ({
                                                                     >
                                                                         {data.users.map((user) => (
                                                                             <div 
+                                                                                key={user.id}
                                                                                 className="
                                                                                     flex
                                                                                     flex-col
