@@ -11,15 +11,17 @@ import ImageModal from "./ImageModal"
 
 interface MessageBoxProps {
     isLast?: boolean
+    consecutive?: boolean
     data: FullMessageType
 }
 
 const MessageBox: FC<MessageBoxProps> = ({
     isLast,
+    consecutive,
     data
 }) => {
     const session = useSession()
-    const [imageModalOpen , setImageModalOpen] = useState(false)
+    const [imageModalOpen, setImageModalOpen] = useState(false)
 
     const isOwn = session?.data?.user?.email === data?.sender?.email
     const seenList = (data.seen || [])
@@ -31,8 +33,8 @@ const MessageBox: FC<MessageBoxProps> = ({
     // e.g. 'Tuan loc, Alowf, Cillian Murphy'
 
     const container = clsx(
-        "flex gap-3 p-4",
-        isOwn && 'justify-end'
+        "flex gap-3 p-4 -mt-6",
+        isOwn && 'justify-end',
     )
 
     const avatar = clsx(isOwn && "order-2")
@@ -45,39 +47,50 @@ const MessageBox: FC<MessageBoxProps> = ({
     const message = clsx(
         "text-sm w-fit overflow-hidden",
         isOwn ? 'bg-sky-500 text-white' : 'bg-neutral-100 text-black dark:bg-zinc-900 dark:text-neutral-100',
-        data.image ? 'rounded-md p-0' : 'rounded-full py-2 px-3'
+        data.image ? 'rounded-md p-0' : 'rounded-full py-2 px-3',
+        consecutive ? isOwn  ? 'mr-[54px]' : 'ml-[54px]' 
+                    : ''
     )
 
     return (
         <div className={container}>
-            <div className={avatar}>
-                <Avatar
-                    user={data.sender}
-                />
-            </div>
+            {
+                !consecutive && (
+                    <div className={avatar}>
+                        <Avatar
+                            user={data.sender}
+                        />
+                    </div>
+                )
+            }
             <div className={body}>
-                <div className="flex items-center gap-1">
-                    <div className={clsx(`
-                            text-sm 
-                            font-semibold 
-                            text-gray-900 
-                            dark:text-gray-100
-                        `,
-                        isOwn ? 'order-2' : 'order-1'
-                    )}>
-                        {data.sender.name}
-                    </div>
-                    <div className={clsx(`
-                            text-xs 
-                            text-gray-800 
-                            dark:text-gray-200
-                        `,
-                        isOwn ? 'order-1' : 'order-2'
-                    )}>
-                        {format(new Date(data.createdAt), 'p')}
-                    </div>
-                </div>
-                <div 
+                {
+                    !consecutive && (
+                        <div className="flex items-center gap-1">
+                            <div className={clsx(`
+                                    text-sm 
+                                    font-semibold 
+                                    text-gray-900 
+                                    dark:text-gray-100
+                                `,
+                                isOwn ? 'order-2' : 'order-1'
+                            )}>
+                                {data.sender.name}
+                            </div>
+                    
+                            <div className={clsx(`
+                                    text-xs 
+                                    text-gray-800 
+                                    dark:text-gray-200
+                                `,
+                                isOwn ? 'order-1' : 'order-2'
+                            )}>
+                                {format(new Date(data.createdAt), 'p')}
+                            </div>
+                        </div>
+                    )
+                }
+                <div
                     className={message}
                 >
                     <ImageModal

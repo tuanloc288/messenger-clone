@@ -86,12 +86,13 @@ const Body: FC<BodyProps> = ({
     <div className="flex-1 overflow-y-auto">
       {messages.map((message, i) => (
         <MessageBox
+          consecutive={messages[i]?.senderId === messages[i - 1]?.senderId}
           isLast={i === messages.length - 1}
           key={message.id}
           data={message}
         />
       ))}
-      <div ref={bottomRef} className="pt-24" />
+      <div ref={bottomRef} className="pt-20" />
     </div>
   )
 }

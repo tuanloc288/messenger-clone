@@ -10,6 +10,8 @@ import Avatar from "@/app/components/Avatar"
 import ConfirmModal from "./ConfirmModal"
 import AvatarGroup from "@/app/components/AvatarGroup"
 import useActiveList from "@/app/hooks/useActiveList"
+import { FullMessageType } from "@/app/types"
+import Image from "next/image"
 
 interface ProfileDrawerProps {
     data: Conversation & {
@@ -17,12 +19,14 @@ interface ProfileDrawerProps {
     }
     isOpen?: boolean
     onClose: () => void
+    messagesList: FullMessageType[]
 }
 
 const ProfileDrawer: FC<ProfileDrawerProps> = ({
     data,
     isOpen,
-    onClose
+    onClose,
+    messagesList
 }) => {
     const otherUser = useOtherUser(data)
     const [confirmOpen, setConfirmOpen] = useState(false)
@@ -92,7 +96,7 @@ const ProfileDrawer: FC<ProfileDrawerProps> = ({
                                 right-0
                                 flex
                                 max-w-full
-                                pl-10
+                                sm:pl-10
                             ">
                                 <Transition.Child
                                     as={Fragment}
@@ -107,7 +111,7 @@ const ProfileDrawer: FC<ProfileDrawerProps> = ({
                                         className="
                                             pointer-events-auto
                                             w-screen
-                                            max-w-md
+                                            sm:max-w-md
                                         "
                                     >
                                         <div
@@ -177,7 +181,7 @@ const ProfileDrawer: FC<ProfileDrawerProps> = ({
                                                     ">
                                                         {statusText}
                                                     </div>
-                                                    <div className="flex gap-10 my-8">
+                                                    <div className="flex gap-10 my-4">
                                                         <div
                                                             onClick={() => setConfirmOpen(true)}
                                                             className="
@@ -212,11 +216,12 @@ const ProfileDrawer: FC<ProfileDrawerProps> = ({
                                                         </div>
                                                     </div>
                                                     <div className="
-                                                        w-full
-                                                        py-5
-                                                        sm:px-0
-                                                        sm:pt-0
-                                                    ">
+                                                            w-full
+                                                            py-5
+                                                            sm:px-0
+                                                            sm:pt-0
+                                                        "
+                                                    >
                                                         <dl
                                                             className="
                                                                 space-y-8
@@ -271,10 +276,12 @@ const ProfileDrawer: FC<ProfileDrawerProps> = ({
                                                                             text-neutral-800
                                                                             dark:text-neutral-200
                                                                             sm:col-span-2
+                                                                            max-h-[120px] 
+                                                                            overflow-y-auto
                                                                         "
                                                                     >
                                                                         {data.users.map((user) => (
-                                                                            <div 
+                                                                            <div
                                                                                 key={user.id}
                                                                                 className="
                                                                                     flex
@@ -321,6 +328,57 @@ const ProfileDrawer: FC<ProfileDrawerProps> = ({
                                                                     </div>
                                                                 </>
                                                             )}
+                                                            <>
+                                                                <hr className="dark:border-neutral-600" />
+                                                                <div>
+                                                                    <dt className="
+                                                                            text-sm
+                                                                            font-bold
+                                                                            text-neutral-600
+                                                                            dark:text-neutral-400
+                                                                            sm:w-40
+                                                                            sm:flex-shrink-0
+                                                                        "
+                                                                    >
+                                                                        Ảnh đã gửi
+                                                                    </dt>
+                                                                    <div 
+                                                                        className="
+                                                                            w-full 
+                                                                            h-[420px] 
+                                                                            overflow-y-auto 
+                                                                            overflow-x-hidden 
+                                                                            grid 
+                                                                            grid-cols-2
+                                                                            grid-flow-row-dense
+                                                                            gap-2
+                                                                            mt-2
+                                                                        "
+                                                                    >
+                                                                        {messagesList.map((msg) => (
+                                                                                <div key={msg.id} className={`relative max-h-[160px] [&:nth-child(odd)]:col-span-2`}>
+                                                                                    <Image
+                                                                                        alt="images list"
+                                                                                        src={msg.image!}
+                                                                                        fill
+                                                                                        className="
+                                                                                            object-cover 
+                                                                                            rounded-md 
+                                                                                            box-border
+                                                                                            hover:scale-95
+                                                                                            hover:border-2
+                                                                                            hover:border-black 
+                                                                                            dark:hover:border-white 
+                                                                                            cursor-pointer 
+                                                                                            transition
+                                                                                            duration-300
+                                                                                        "
+                                                                                    />
+                                                                                </div>
+                                                                            ))}
+                                                                    </div>
+                                                                </div>
+                                                            </>
                                                         </dl>
                                                     </div>
                                                 </div>

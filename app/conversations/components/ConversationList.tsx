@@ -112,7 +112,7 @@ const ConversationList: FC<ConversationListProps> = ({
         overflow-y-auto
         border-r
         border-gray-200
-        dark:border-zinc-900
+        dark:border-zinc-500
       `,
           isOpen ? 'hidden' : 'block w-full left-0'
         )}

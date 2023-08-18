@@ -34,7 +34,7 @@ const DesktopSidebar: FC<DesktopSidebarProps> = ({
                 lg:w-20
                 lg:overflow-y-auto
                 lg:border-r
-                dark:lg:border-zinc-900
+                dark:lg:border-zinc-500
                 lg:pb-4
                 xl:px-6
                 lg:flex

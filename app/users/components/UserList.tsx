@@ -20,7 +20,7 @@ const UserList: FC<UserListProps> = ({
             overflow-y-auto
             border-r
             border-gray-200
-            dark:border-zinc-900
+            dark:border-zinc-500
             block
             w-full  
             left-0
