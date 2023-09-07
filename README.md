@@ -3,6 +3,8 @@
 ![Individual chat](https://res.cloudinary.com/dbiliw2ja/image/upload/v1694088706/individual_itsiru.png)
 ![Gallery](https://res.cloudinary.com/dbiliw2ja/image/upload/v1694088706/gallery_v6184l.png)
 ![Group](https://res.cloudinary.com/dbiliw2ja/image/upload/v1694088706/group_yw9iyj.png)
+![Settings](https://res.cloudinary.com/dbiliw2ja/image/upload/v1694089593/settings_pmxvze.png)
+![Light mode](https://res.cloudinary.com/dbiliw2ja/image/upload/v1694089593/light_dimmnt.png)
 
 This project is a Messenger clone with Next.js 13 App Router: 
     React, Tailwind + Headless UI, Prisma + MongoDB, 
@@ -13,11 +15,13 @@ Features:
 - Tailwind design
 - Tailwind animations and effects
 - Fully responsive design
+- Light, dark and system mode
 - Redirect unauthorized users when accessing protected routes
 - Google and Github authentication using Clerk
 - Form validation and handling using react-hook-form
 - Notification using react-hot-toast
 - Page loading state
+- User setting for displayed name, avatar
 - Real-time chat and user status using Pusher (offline / online)
 - Individual and group chat with text or image (will be added more features later if i have time 😄)
 
